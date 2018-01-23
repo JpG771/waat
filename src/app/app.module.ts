@@ -21,7 +21,6 @@ import { XLargeDirective } from './home/x-large';
 import { DevModuleModule } from './+dev-module';
 
 import '../styles/styles.scss';
-import '../styles/headings.css';
 
 // Application wide providers
 const APP_PROVIDERS = [
