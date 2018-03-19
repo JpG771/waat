@@ -1,0 +1,318 @@
+<h1>New Alarm</h1>
+<hr>
+
+<form [formGroup]="alarmForm" (ngSubmit)="save()" autocomplete="off" novalidate>
+    <fieldset>
+        <legend>Me</legend>
+        
+        <div formGroupName="me">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'error' : !validateFirstName() }">
+                        <label for="firstName">First Name:</label>
+                        <em *ngIf="!validateFirstName()">Required</em>
+                        <input formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'error' : !validateLastName() }">
+                        <label for="lastName">Last Name:</label>
+                        <em *ngIf="!validateLastName()">Required</em>
+                        <input formControlName="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name..." />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input formControlName="email" id="email" type="text" class="form-control" placeholder="Email..." />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input formControlName="phone" id="phone" type="text" class="form-control" placeholder="Phone..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <hr>
+    <fieldset>
+        <legend>My emergency contact</legend>
+        
+        <div formGroupName="contact">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'error' : !validateFirstName() }">
+                        <label for="contactFirstName">First Name:</label>
+                        <em *ngIf="!validateFirstName()">Required</em>
+                        <input formControlName="firstName" id="contactFirstName" type="text" class="form-control" placeholder="First Name..." />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'error' : !validateLastName() }">
+                        <label for="contactLastName">Last Name:</label>
+                        <em *ngIf="!validateLastName()">Required</em>
+                        <input formControlName="lastName" id="contactLastName" type="text" class="form-control" placeholder="Last Name..." />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="contactEmail">Email:</label>
+                        <input formControlName="email" id="contactEmail" type="text" class="form-control" placeholder="Email..." />
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="contactPhone">Phone:</label>
+                        <input formControlName="phone" id="contactPhone" type="text" class="form-control" placeholder="Phone..." />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <hr>
+    <fieldset>
+        <legend>With who <a (click)="addWho()"><i class="fa fa-plus fa-3" aria-hidden="true"></i></a></legend>
+
+        <div formArrayName="whos" *ngFor="let who of whos.controls; let i=index">
+            <div [formGroupName]="i" class="jumbotron jumbotron-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-1 display-3">{{ i + 1 }}</div>
+                        <div class="col-11">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label attr.for="{{ 'whoName' + i }}">Name:</label>
+                                        <input formControlName="name" id="{{ 'whoName' + i }}" type="text" class="form-control" placeholder="Full or Partial Name..." />
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label attr.for="{{ 'whoContact' + i }}">Phone \ Email:</label>
+                                        <input formControlName="contactInfo" id="{{ 'whoContact' + i }}" type="text" class="form-control" placeholder="Contact information..." />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label attr.for="{{ 'whoAge' + i }}">Age:</label>
+                                    <input formControlName="age" id="{{ 'whoAge' + i }}" type="number" class="form-control" placeholder="Full or Partial Name..." />
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label attr.for="{{ 'whoSexe' + i }}">Sexe:</label>
+                                        <input formControlName="sexe" id="{{ 'whoSexe' + i }}" type="text" class="form-control" placeholder="Last Name..." />
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <label attr.for="{{ 'whoRelationship' + i }}">Relationship type:</label>
+                                    <input formControlName="relationship" id="{{ 'whoRelationship' + i }}" type="text" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label attr.for="{{ 'whoDescription' + i }}">Description \ Additionnal info:</label>
+                                    <textarea rows="4" formControlName="description" id="{{ 'whoDescription' + i }}" class="form-control" placeholder="Has glasses, scars..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <hr>
+    <fieldset>
+        <legend>Where <a (click)="addWhere()"><i class="fa fa-plus fa-3" aria-hidden="true"></i></a></legend>
+
+        <div formArrayName="wheres" *ngFor="let where of wheres.controls; let i=index">
+            <div [formGroupName]="i" class="jumbotron jumbotron-fluid">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-1 display-3">{{ i + 1 }}</div>
+                        <div class="col-11">
+                            <div class="row text-center">
+                                <div class="col-md-10">
+                                    <div class="btn-group" role="group" aria-label="Type of where">
+                                        <button type="button" class="btn btn-secondary" [class.active]="where.get('type').value==='house'" (click)="where.get('type').value='house'" >House</button>
+                                        <button type="button" class="btn btn-secondary" [class.active]="where.get('type').value==='car'" (click)="where.get('type').value='car'">Car</button>
+                                        <button type="button" class="btn btn-secondary" [class.active]="where.get('type').value==='business'" (click)="where.get('type').value='business'">Business</button>
+                                        <button type="button" class="btn btn-secondary" [class.active]="where.get('type').value==='forest'" (click)="where.get('type').value='forest'">Park / Forest</button>
+                                        <button type="button" class="btn btn-secondary" [class.active]="where.get('type').value==='other'" (click)="where.get('type').value='other'">Other</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label for="{{ 'startDate' + i }}">Start date:</label>
+                                    <input formControlName="startDate" id="{{ 'startDate' + i }}" type="date" class="form-control" placeholder="Date you were at this place..." />
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="{{ 'startTime' + i }}">Start time:</label>
+                                    <input formControlName="startTime" id="{{ 'startTime' + i }}" type="time" class="form-control" placeholder="Time you were at this place..." />
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="{{ 'endDate' + i }}">End date:</label>
+                                    <input formControlName="endDate" id="{{ 'endDate' + i }}" type="date" class="form-control" placeholder="Date you left this place..." />
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="{{ 'endTime' + i }}">End time:</label>
+                                    <input formControlName="endTime" id="{{ 'endTime' + i }}" type="time" class="form-control" placeholder="Time you left this place..." />
+                                </div>
+                            </div>
+                            <div [ngSwitch]="where.get('type').value">
+                                <!-- House -->
+                                <div formGroupName="house" *ngSwitchCase="'house'">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <label for="{{ 'nbFloor' + i }}"># of floor:</label>
+                                            <input formControlName="nbFloor" id="{{ 'nbFloor' + i }}" type="text" class="form-control" placeholder="Number of visible floors..." />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="{{ 'color' + i }}">Color:</label>
+                                            <input formControlName="color" id="{{ 'color' + i }}" type="text" class="form-control" placeholder="Color of the house..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <label for="{{ 'houseDescription' + i }}">Uniqueness:</label>
+                                            <input formControlName="houseDescription" id="{{ 'houseDescription' + i }}" type="text" class="form-control" placeholder="Big garage, red runway, dead trees..." />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label for="{{ 'houseAddress' + i }}">Address:</label>
+                                            <input formControlName="address" id="{{ 'houseAddress' + i }}" type="text" class="form-control" placeholder="Full or Partial Address..." />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="{{ 'houseCity' + i }}">City:</label>
+                                            <input formControlName="city" id="{{ 'houseCity' + i }}" type="text" class="form-control" placeholder="City Name..." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Car -->
+                                <div formGroupName="car" *ngSwitchCase="'car'">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label for="{{ 'carMake' + i }}">Make:</label>
+                                            <input formControlName="make" id="{{ 'carMake' + i }}" type="text" class="form-control" placeholder="Ford, Hyndai, Mazda..." />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="{{ 'carModel' + i }}">Model:</label>
+                                            <input formControlName="model" id="{{ 'carModel' + i }}" type="text" class="form-control" placeholder="Fiesta, Elantra, 3..." />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="{{ 'carYear' + i }}">Year:</label>
+                                            <input formControlName="year" id="{{ 'carYear' + i }}" type="text" class="form-control" placeholder="2017, 1990, 1940..." />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="{{ 'carColor' + i }}">Color:</label>
+                                            <input formControlName="color" id="{{ 'carColor' + i }}" type="text" class="form-control" placeholder="Yellow, brown, mate black..." />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="{{ 'travelFrom' + i }}">Travelling from:</label>
+                                            <input formControlName="travelFrom" id="{{ 'travelFrom' + i }}" type="text" class="form-control" placeholder="Montreal..." />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="{{ 'travelTo' + i }}">Travelling to:</label>
+                                            <input formControlName="travelTo" id="{{ 'travelTo' + i }}" type="text" class="form-control" placeholder="Toronto..." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Business -->
+                                <div formGroupName="business" *ngSwitchCase="'business'">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="{{ 'businessName' + i }}">Name:</label>
+                                            <input formControlName="name" id="{{ 'businessName' + i }}" type="text" class="form-control" placeholder="Business Name..." />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label for="{{ 'businessAddress' + i }}">Address:</label>
+                                            <input formControlName="address" id="{{ 'businessAddress' + i }}" type="text" class="form-control" placeholder="Full or Partial Address..." />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="{{ 'businessCity' + i }}">City:</label>
+                                            <input formControlName="city" id="{{ 'businessCity' + i }}" type="text" class="form-control" placeholder="City Name..." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Forest -->
+                                <div formGroupName="forest" *ngSwitchCase="'forest'">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="{{ 'forestName' + i }}">Name:</label>
+                                            <input formControlName="name" id="{{ 'forestName' + i }}" type="text" class="form-control" placeholder="Forest or Park Name..." />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="{{ 'forestEntrance' + i }}">Entrance:</label>
+                                            <input formControlName="entrance" id="{{ 'forestEntrance' + i }}" type="text" class="form-control" placeholder="Road, direction (south, north)..." />
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="{{ 'forestExit' + i }}">Exit:</label>
+                                            <input formControlName="exit" id="{{ 'forestExit' + i }}" type="text" class="form-control" placeholder="Road, direction (south, north)..." />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <label for="{{ 'forestAddress' + i }}">Address:</label>
+                                            <input formControlName="address" id="{{ 'forestAddress' + i }}" type="text" class="form-control" placeholder="Address or closest road..." />
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="{{ 'forestCity' + i }}">City:</label>
+                                            <input formControlName="city" id="{{ 'forestCity' + i }}" type="text" class="form-control" placeholder="City name..." />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Other -->
+                                <div formGroupName="other" *ngSwitchCase="'other'">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <label for="{{ 'whereOther' + i }}">Description:</label>
+                                            <textarea formControlName="description" rows="4" id="{{ 'whereOther' + i }}" class="form-control" placeholder="Describe the whereabouts..."></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <hr>
+    <fieldset>
+        <legend>When to raise an alarm</legend>
+
+        <div class="row align-items-center">
+            <div class="col-auto">
+                Send a message if i have not deleted this alarm at 
+            </div>
+            <div class="col-auto"><input formControlName="alarmDate" type="date" class="form-control" /></div>
+            <div class="col-auto"><input formControlName="alarmTime" type="time" class="form-control" /></div>
+        </div>
+    </fieldset>
+
+    <hr>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary" [disabled]="alarmForm.invalid">Save</button>
+        </div>
+        <div class="col-10">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <button class="btn btn-outline-secondary" type="button">Send a test to:</button>
+                </div>
+                <input type="text" class="form-control" placeholder="Email address">
+            </div>
+        </div>
+    </div>
+</form>
